@@ -11,7 +11,7 @@ from app.middlewares import ThrottlingMiddleware
 
 async def main():
     # Configure logging
-    from utils.postgresql import Database
+    # from utils.postgresql import Database
     from app.handlers.start import router
     logging.basicConfig(level=logging.INFO)
 

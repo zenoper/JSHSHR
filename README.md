@@ -8,3 +8,4 @@
 2. Create a new virtual environment
 3. Install the dependencies
 4. Run the bot
+# JSHSHR
