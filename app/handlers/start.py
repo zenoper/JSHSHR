@@ -9,7 +9,7 @@ from app.states import Register
 
 router = Router()
 # Initialize EasyOCR reader for Uzbek and English
-reader = easyocr.Reader(['uz', 'en'])
+reader = easyocr.Reader(['en'])
 
 
 @router.message(CommandStart())
