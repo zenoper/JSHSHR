@@ -2,14 +2,15 @@ from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message, FSInputFile
 from aiogram.fsm.context import FSMContext
-import easyocr
+import pytesseract
+from PIL import Image
 import os
 
 from app.states import Register
 
 router = Router()
-# Initialize EasyOCR reader for Uzbek and English
-reader = easyocr.Reader(['en'])
+# Configure pytesseract path if needed (uncomment and modify if Tesseract isn't in PATH)
+# pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 
 @router.message(CommandStart())
@@ -33,14 +34,11 @@ async def handle_photo(message: Message):
     await message.answer("Rasmdan text o'qilyapti...")
     
     try:
-        # Read text from image
-        result = reader.readtext(file_path)
-        
-        # Extract all detected text 
-        detected_text = ' '.join([text[1] for text in result])
+        # Read text from image using Tesseract
+        image = Image.open(file_path)
+        detected_text = pytesseract.image_to_string(image, lang='eng')
         
         if detected_text:
-            
             try:
                 # Get the last part of text
                 last_line = detected_text.split()[-1]
